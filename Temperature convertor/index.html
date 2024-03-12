@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter</title>
+
+</head>
+<body>
+<div id="converter">
+    <div id="clock"></div>
+    <div id="icons">
+        <span class="icon">🔋</span> <!-- Battery symbol -->
+        <span class="icon">📶</span> <!-- Signal symbol -->
+    </div>
+    <h1>Temperature Converter</h1>
+    <div id="result"></div> <!-- Result section -->
+    <h2 class="heading">Temperature</h2> <!-- Heading for temperature -->
+    <input type="number" id="temperatureInput" placeholder="Enter temperature" required>
+    <br>
+    <h2 class="heading">Unit</h2> <!-- Heading for unit -->
+    <select id="unitSelect">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select>
+    <br>
+    <button onclick="convertTemperature()">Convert</button>
+</div>
+
+<script>
+function convertTemperature() {
+    var temperatureInput = document.getElementById("temperatureInput").value;
+    var unitSelect = document.getElementById("unitSelect").value;
+    var convertedTemperature;
+    
+    if (unitSelect === "celsius") {
+        convertedTemperature = (temperatureInput - 32) * 5/9;
+        document.getElementById("result").innerHTML = "Result: " + convertedTemperature.toFixed(2) + " °C";
+    } else if (unitSelect === "fahrenheit") {
+        convertedTemperature = (temperatureInput * 9/5) + 32;
+        document.getElementById("result").innerHTML = "Result: " + convertedTemperature.toFixed(2) + " °F";
+    } else if (unitSelect === "kelvin") {
+        convertedTemperature = parseFloat(temperatureInput) + 273.15;
+        document.getElementById("result").innerHTML = "Result: " + convertedTemperature.toFixed(2) + " K";
+    }
+}
+
+function updateClock() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    document.getElementById('clock').textContent = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
+}
+
+function pad(number) {
+    return (number < 10 ? '0' : '') + number;
+}
+
+setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
